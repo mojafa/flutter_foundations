@@ -8,9 +8,9 @@ class RangeSelectorPage extends StatefulWidget {
 }
 
 class _RangeSelectorPageState extends State<RangeSelectorPage> {
-
-  int _min = 0;
-  int _max = 0; 
+  final formKey = GlobalKey<FormState>();
+  int _min = 0; 
+  int _max = 0;  
  
   @override
   Widget build(BuildContext context) {
@@ -19,6 +19,7 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
         title: const Text('Select Range'),
       ),
       body: const Form(
+        key: formKey,
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -40,9 +41,13 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.arrow_forward),
         onPressed: () {
-          // TODO  validate the form
-          
+         
+          if (formKey.currentState?.validate() == true){
+            formKey.currentState?.save();
+
           // TODO  navigate to the generator page
+          }
+          
       },
       ),
     );
