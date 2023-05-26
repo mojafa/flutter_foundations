@@ -16,6 +16,8 @@ class RandomizerPage extends StatefulWidget {
 class _RandomizerPageState extends State<RandomizerPage> {
   @override
   Widget build(BuildContext context) {
+    widget.min;
+    widget.max;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Randomizer'),
