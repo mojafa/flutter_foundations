@@ -11,13 +11,15 @@ class AppWidget extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) { 
-    return MaterialApp(
-      title: 'Random number generator',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      child: MaterialApp(
+        title: 'Random number generator',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: RangeSelectorPage(),
       ),
-      home: RangeSelectorPage(),
     );
   } 
 }
