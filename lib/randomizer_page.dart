@@ -1,40 +1,31 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_foundations/randomizer_change_notifier.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_foundations/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RandomizerPage extends StatelessWidget {
-   const RandomizerPage({
-    Key? key,
-  }) : super(key: key);
- @override
-  Widget build(BuildContext context) {
+class RandomizerPage extends ConsumerWidget {
+  const RandomizerPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final randomizer = ref.watch(randomizerProvider);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Randomizer'),
-      ),
-      body: Center(
-        child: Consumer<RandomizerChangeNotifier>(
-          builder: (context, notifier, child){
-            return Text(
-              notifier.generatedNumber?.toString() ?? 'Genenrate a number',
-              style: const TextStyle(fontSize: 42),
-            );
-          },
-
+        appBar: AppBar(
+          title: const Text('Randomizer'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        
-        label: const Text('Generate'),
-        onPressed: () {
-          context.read<RandomizerChangeNotifier>().generatedRandomNumber();
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-
+        body: Center(
+            child: Text(
+          randomizer.generatedNumber?.toString() ?? 'Generate a number',
+          style: const TextStyle(fontSize: 42),
+        )),
+        floatingActionButton: FloatingActionButton.extended(
+          label: const Text('Generate'),
+          onPressed: () {
+            ref.read(randomizerProvider.notifier).generateRandomNumber();
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
 }
